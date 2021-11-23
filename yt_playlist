@@ -1,0 +1,14 @@
+from pytube import Playlist
+import os
+
+link = input('Cole o link: ')
+p = Playlist(link)
+
+print(f'Baixando Playlist: {p.title}')
+
+for video in p.videos:
+    arquivo_saida = video.streams.get_audio_only().download()
+    print(f'{video.title}')
+    nome_base, ext = os.path.splitext(arquivo_saida)
+    novo_arquivo = nome_base + '.mp3'
+    os.rename(arquivo_saida, novo_arquivo)
